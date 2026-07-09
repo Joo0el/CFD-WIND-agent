@@ -1,0 +1,96 @@
+# CFD-Agent example configuration
+# Copy this file to config.yaml and modify paths for your own machine.
+
+project:
+  name: "CFD-Agent"
+  description: "Automated CFD workflow for urban/building wind simulations"
+  version: "0.1.0"
+
+paths:
+  # Input geometry directory. Put small STL examples here for testing.
+  stl_dir: "examples/stl"
+
+  # Optional GeoTIFF input directory for raster-to-STL conversion.
+  tif_dir: "examples/tif"
+
+  # OpenFOAM template case directory.
+  template_dir: "templates/windAroundBuildings"
+
+  # Runtime output directories.
+  output_root: "outputs/wind_cases"
+  csv_root: "outputs/csv"
+  png_root: "outputs/png"
+  gif_root: "outputs/gif"
+
+  # Optional intermediate directory for height matrix CSV files.
+  building_matrix_dir: "outputs/building_matrix"
+
+openfoam:
+  # For Windows + blueCFD. Modify this path on your own computer.
+  setvars_bat: "C:/Program Files/blueCFD-Core-2020/setvars_OF8.bat"
+
+  # OpenFOAM executable directory.
+  bin_dir: "C:/Program Files/blueCFD-Core-2020/OpenFOAM-8/platforms/mingw_w64GccDPInt32Opt/bin"
+
+  executables:
+    blockMesh: "blockMesh.exe"
+    surfaceFeatures: "surfaceFeatures.exe"
+    snappyHexMesh: "snappyHexMesh.exe"
+    simpleFoam: "simpleFoam.exe"
+    pisoFoam: "pisoFoam.exe"
+    postProcess: "postProcess.exe"
+    foamToVTK: "foamToVTK.exe"
+
+simulation:
+  # Solver settings
+  solver: "simpleFoam"
+  turbulence_model: "kOmegaSST"
+
+  # Base wind speed in m/s.
+  base_u: 5.0
+
+  # Wind directions for batch simulation, in degrees.
+  angles: [0, 45, 90, 135, 180, 225, 270, 315]
+
+  # Time-varying inlet settings.
+  time_varying_inlet: true
+  time_step_seconds: 300
+  number_of_steps: 288
+
+mesh:
+  # Target background mesh cell size in meters.
+  cell_size: 4.0
+
+  # Buffer distance around STL bounding box in meters.
+  domain_buffer: 100.0
+
+  # snappyHexMesh refinement settings.
+  surface_refinement_level: [2, 2]
+  region_refinement_level: 1
+  add_layers: false
+
+sampling:
+  # Pedestrian-level extraction height.
+  plane_z: 2.0
+  plane_tol: 0.1
+
+visualization:
+  # Wind speed color scale for PNG/GIF outputs.
+  wind_speed_vmin: 0
+  wind_speed_vmax: 15
+  cmap: "viridis"
+  dpi: 300
+  gif_duration: 0.25
+
+parallel:
+  enabled: false
+  processors: 4
+
+quality_control:
+  max_retry: 3
+  residual_target: 1.0e-4
+  check_mesh_required: true
+
+logging:
+  save_logs: true
+  log_dir: "outputs/logs"

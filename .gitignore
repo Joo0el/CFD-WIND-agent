@@ -1,0 +1,81 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+.env
+.ipynb_checkpoints/
+
+# Local config
+config.yaml
+*.local.yaml
+
+# Logs
+logs/
+*.log
+log.*
+
+# Runtime outputs
+outputs/
+wind_cases/
+CSV/
+PNG/
+GIF/
+VTK/
+postProcessing/
+processor*/
+dynamicCode/
+
+# OpenFOAM generated files
+*.foam
+*.vtk
+*.vtu
+*.vtp
+*.obj
+*.eMesh
+polyMesh/
+constant/polyMesh/
+constant/extendedFeatureEdgeMesh/
+constant/triSurface/*.eMesh
+
+# OpenFOAM time folders
+[0-9]/
+[0-9].*/
+[0-9][0-9]/
+[0-9][0-9].*/
+[0-9][0-9][0-9]/
+[0-9][0-9][0-9].*/
+[0-9][0-9][0-9][0-9]/
+[0-9][0-9][0-9][0-9].*/
+
+# Large CFD / GIS / geometry data
+*.npy
+*.npz
+*.tif
+*.tiff
+*.stl
+*.3dm
+*.vtk
+*.vtu
+*.csv
+
+# Keep small examples if intentionally included
+!examples/**/*.stl
+!examples/**/*.tif
+!examples/**/*.csv
+!examples/**/*.md
+!examples/**/*.yaml
+
+# Documentation build
+docs/_build/
+site/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
